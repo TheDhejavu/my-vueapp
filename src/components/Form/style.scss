@@ -1,0 +1,33 @@
+@import "../../styles/common.scss";
+
+.form-group{
+    margin:15px 5px;
+    // display:block;
+    position:relative;
+}
+.form-label{
+    font-weight:600;
+    display:block;
+    font-size:0.8rem;
+    font-family:$font-family-monserrat;
+    padding:2px 0;
+}
+.form-control{
+    border:none;
+    border: 1px solid rgb(232, 235, 241);
+    border-radius:7px;
+    padding:6px 11px;
+    line-height:2rem;
+    width:100%;
+    font-family:$font-family-monserrat;
+    font-weight:500;
+}
+
+.form-control.is-danger{
+    border:1px solid red;
+}
+
+.form-feedback.is-danger{
+    color:red;
+    font-size:0.8rem;
+}
