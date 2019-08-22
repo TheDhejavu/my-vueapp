@@ -12,19 +12,34 @@
                 </div>
                 <nav class="app-header__nav to-right">
                     <ul >
-                        <li class="list">
+                        <li class="list" @click="popup">
                                 <a href="#" class="link">
                                     <i class='uil uil-bell'></i>
                                 </a>
                         </li>
-                        <li class="list">
-                                <a href="#" class="link" > <i class='uil uil-comment-alt-lines'></i></a>
+                        <li class="list" @click="popup">
+                                <a href="#" class="link"> <i class='uil uil-comment-alt-lines'></i></a>
                             </li>
                             <li class="profile list">
-                                <div class="flex">
+                                <div class="flex"   @click="toggleDropdown" ref="profileToggleNode">
                                     <img src="/assets/avatar.png" class="profile-image" alt="profile image"/>
                                     <p class="name">akinola!</p>
                                 </div>
+                                <dropdown
+                                    :isDropdownOpen="isDropdownOpen"
+                                    :styles="setStyles()"
+                                    :refNode="profileToggleNode"
+                                    @away= "hideDropdown"
+                                >
+                                <ul >
+                                    <li>
+                                        <router-link to="/settings"><i class="uil uil-cog"></i> Settings </router-link>
+                                    </li>
+                                    <li>
+                                        <router-link to="/logout"><i class="uil uil-exit"></i> Logout</router-link>
+                                    </li>
+                                </ul>
+                                </dropdown>
                         </li>
                     </ul>
                 </nav>
@@ -53,18 +68,61 @@
     </header>
 </template>
 <script>
+
+import Dropdown from "../Dropdown/Dropdown.vue";
+
 export default {
-    name:"header",
+    name:"app-header",
+    components: {
+        Dropdown
+    },
+    data(){
+        return {
+            isDropdownOpen: false,
+            profileToggleNode: ""
+        }
+    },
     props:{
         viewContent:{
             type:Boolean,
             default: false
         }
     },
+    mounted() {
+        this.profileToggleNode = this.$refs.profileToggleNode;
+    },
+
     methods:{
+        setStyles(){
+            return {
+                top: "40px",
+                right: "60px",
+                width: "160px",
+            }
+        },
         goBack: function (event){
             console.log( "go back")
             this.$router.go(-1);
+        },
+        popup(){
+            // we must pass object params with all the information
+            const params = {
+                title: "🤢 Coming Soon",
+                text: "This feature is currently not available. Endeavour to check back later. Thanks!",
+                confirmEnabled: false,
+                // we are passing callback method for our confirm button
+                onConfirm: () => {
+                 this.$toaster.success("Confirmed!!!")
+                }
+            };
+            // now we can call function that will reveal our modal
+            this.$dialog.show(params)
+        },
+        toggleDropdown(){
+            this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        hideDropdown(){
+            this.isDropdownOpen = false;
         }
     }
 }

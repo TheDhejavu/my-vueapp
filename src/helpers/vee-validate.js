@@ -2,7 +2,8 @@ const dictionary = {
     en: {
       attributes: {
         email: 'Email Address',
-        phone_number: 'Phone number'
+        phone_number: 'Phone number',
+        new_password: 'New password'
       }
     }
 };

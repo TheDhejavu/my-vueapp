@@ -4,7 +4,7 @@
         <div class="settings-content">
             <h4 class="text-center">Edit profile</h4>
             <div class="form-container">
-                <form class="form" @:submit.prevent="handleSubmit">
+                <form method="POST" class="form" @submit.prevent="handleSubmit">
                         <text-input
                             :label="formControls.fullName.label"
                             name="fullname"
@@ -51,7 +51,7 @@
         <div class="settings-content change-password">
             <h4 class="text-center">Change password</h4>
             <div class="form-container">
-                <form class="form" @:submit.prevent="handleSubmit">
+                <form class="form" @submit.prevent="handleSubmit" method="POST">
 
                     <password-input
                         :label="formControls.password.label"

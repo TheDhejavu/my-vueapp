@@ -1,9 +1,17 @@
 <template>
-    <button class="btn compose-button ripple"><i class='uil uil-comment-alt-edit'></i>Compose </button>
+    <button class="btn compose-button ripple" @click="openDialog"><i class='uil uil-comment-alt-edit'></i>Compose </button>
 </template>
 <script>
 export default {
-    name: "compose-button"
+    name: "compose-button",
+    props: {
+        method: { type: Function },
+    },
+    methods: {
+        openDialog() {
+            this.$emit("open")
+        }
+    }
 }
 </script>
 <style lang="scss" scoped>

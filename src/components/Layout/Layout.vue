@@ -7,7 +7,8 @@
           <slot></slot>
         </div>
       </div>
-      <compose-button />
+      <compose-dialog :isVisible="isDialogVisible" @close="closeDialog"></compose-dialog>
+      <compose-button @open="openDialog"/>
     <Footer />
   </div>
 </template>
@@ -16,14 +17,17 @@
 import Header from "../Header/Header.vue";
 import Footer from "../Footer/Footer.vue";
 import ComposeButton from "../button/ComposeButton.vue";
+import { ComposeDialog }from "../dialogs";
 
 export default {
   name: "layout",
   components:{
-    Header, Footer, ComposeButton
+    Header, Footer, ComposeButton, ComposeDialog
   },
   data (){
-    return {}
+    return {
+      isDialogVisible: false
+    }
   },
   props:{
     page:{
@@ -33,7 +37,16 @@ export default {
       type:Boolean,
       default: false
     }
+  },
+  methods:{
+    openDialog(){
+      this.isDialogVisible = true
+    },
+    closeDialog(){
+      this.isDialogVisible = false
+    }
   }
+
 }
 </script>
 
@@ -56,7 +69,7 @@ export default {
 }
 .app-layout__content{
   background:#fff;
-  min-height:500px;
+  min-height:200px;
   border-radius:5px;
   box-shadow:0 4px 10px 0 rgba(0,0,0,0.07);
   margin:20px 0;

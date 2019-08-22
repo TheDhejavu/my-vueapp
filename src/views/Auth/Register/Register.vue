@@ -38,7 +38,7 @@
                     :placeholder="formControls.phoneNumber.placeholder"
                 >
                 </text-input>
-                
+
                 <password-input
                    :label="formControls.password.label"
                     name="password"
@@ -52,6 +52,7 @@
 
                 <Button
                     value="Create account"
+                    :isLoading="isLoading"
                 >
                 </Button>
             </form>

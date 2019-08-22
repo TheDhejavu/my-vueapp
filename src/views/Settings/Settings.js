@@ -1,5 +1,6 @@
 import layout from "../../components/Layout/Layout.vue";
 import { TextInput, Button, PasswordInput  } from "../../components/Form";
+import {mapGetters} from 'vuex';
 
 export default {
     name:"settings",
@@ -66,12 +67,15 @@ export default {
         }
     },
     computed: {
-
+        ...mapGetters(['user']),
+    },
+    mounted(){
+        this.$store.dispatch("GET_USER");
     },
     methods: {
         handleSubmit() {
             this.submitted = true;
-
+            console.log( this.user.id);
             this.$validator.validateAll().then(valid => {
                 if (valid) {
                     this.register(this.user);

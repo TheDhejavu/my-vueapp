@@ -1,0 +1,56 @@
+@import "../../styles/common.scss";
+
+.card-view{
+    font-family: $font-family-roboto;
+    padding:15px;
+    padding-bottom:4px;
+    transition: cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+
+    .card-content{
+        padding:5px;
+    }
+    .top{
+        // border-bottom: 1px solid #ddd;
+        padding:3px 5px;
+        .timeago{
+            font-size:0.8rem;
+        }
+    }
+    .text{
+        font-family: $font-family-roboto;
+        font-size:1rem;
+        padding:5px;
+        min-height:300px;
+    }
+    .bottom{
+        position:relative;
+    }
+    .user{
+        padding:5px;
+        img{
+            border-radius:100%;
+            width:30px;
+            height:30px;
+            border:3px solid #fff;
+            border-top:3px solid #ddd;
+            border-bottom:3px solid #ddd;
+            box-shadow:0 5px 10px 0 rgba(0,0,0,0.01)
+        }
+        .name{
+            padding:5px 2px;
+            font-weight:400;
+            font-size:0.8rem;
+        }
+    }
+    .more-button{
+        border:none;
+        font-size:1.1rem;
+        padding:8px;
+        transition:cubic-bezier(0.075, 0.82, 0.165, 1) 0.4s;
+        &:hover{
+            background:#fff;
+            border-radius:100%;
+            cursor:pointer;
+        }
+    }
+}

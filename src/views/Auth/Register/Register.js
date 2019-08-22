@@ -1,5 +1,5 @@
 import { TextInput, Button, PasswordInput  } from "../../../components/Form";
-
+import { mapGetters} from "vuex";
 export default {
     name: "register",
     components:{
@@ -50,21 +50,45 @@ export default {
                     }
                 },
             },
-            submitted: false
+            isLoading: false
         }
     },
-    computed: {
+
+
+    mounted(){
 
     },
+    computed: {
+        ...mapGetters(["currentUser", "authFeedback"])
+    },
     methods: {
-        handleSubmit() {
-            this.submitted = true;
 
+        handleSubmit() {
+            this.isLoading = true;
+
+            let user = {};
+            for(var key in this.formControls){
+                user[key] = this.formControls[key].value;
+            }
             this.$validator.validateAll().then(valid => {
                 if (valid) {
-                    this.register(this.user);
+                    this.$store.dispatch("SIGNUP", user);
                 }
             })
         }
-    }
+    },
+
+    watch: {
+        authFeedback(newValue) {
+            this.isLoading =false;
+            if(newValue.error){
+                this.$toaster.error(newValue.message)
+            }else{
+                this.$toaster.success(newValue.message)
+                setTimeout( ()=>{
+                    this.$router.push("home")
+                }, 500)
+            }
+        },
+    },
 };

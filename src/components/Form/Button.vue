@@ -1,13 +1,27 @@
 <template>
      <div class="form-group flex center text-center">
-        <button class="ripple btn form-button has-shadow" :class="classNames" v-bind="$attrs" >{{ value }}</button>
+        <button type="submit" :disabled="isLoading" class="flex ripple btn form-button has-shadow" :class="classNames" v-bind="$attrs" >
+            <clip-loader :loading="isLoading" :color="color" :size="size"></clip-loader>
+            <span v-if="!isLoading">{{ value }}</span>
+        </button>
     </div>
 </template>
 
 <script>
+import ClipLoader from 'vue-spinner/src/ClipLoader.vue';
+
 export default{
     name: "Button",
+    components:{
+        ClipLoader
+    },
     inheritAttrs: false,
+    data(){
+        return{
+            color   :"#fff",
+            size:"20px"
+        }
+    },
     props: {
         value: {
             type: String,
@@ -16,6 +30,10 @@ export default{
         },
         classNames:{
             type:String,
+        },
+        isLoading:{
+            type:Boolean,
+            default:false
         }
     }
 }
@@ -60,5 +78,5 @@ export default{
   .btn:disabled{
     cursor:not-allowed;
     opacity:0.6;
-    }
+}
 </style>

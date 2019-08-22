@@ -1,6 +1,6 @@
 <template>
     <layout page="My Feed" :viewContent="true">
-         <div class="card">
+         <div class="card-view">
              <div class="top">
                     <p class="timeago"><i class='uil uil-calendar-alt'></i> {{ item.date }}</p>
                 </div>

@@ -7,7 +7,32 @@
 <script>
 
 export default {
-  name: 'app'
+  name: 'app',
+  mounted () {
+    setTimeout( ()=>{
+       this.$progress.done();
+    }, 4000)
+  },
+  created (){
+    //  [App.vue specific] When App.vue is first loaded start the progress bar
+     this.$progress.start();
+
+    //  hook the progress bar to start before we move router-view
+    this.$router.beforeEach((to, from, next) => {
+      // start the progress bar
+     this.$progress.start()
+      // continue to next page
+      next()
+    })
+
+    //  hook the progress bar to finish after we've finished moving router-view
+    this.$router.afterEach((to, from) => {
+      //  finish the progress bar
+      setTimeout( ()=>{
+        this.$progress.done();
+      }, 4000)
+    })
+  }
 }
 </script>
 
@@ -25,6 +50,14 @@ body {
     font-family:$font-family-roboto;
     font-family:$font-family-monserrat;
     overflow-x:hidden;
+    #nprogress .bar {
+      background: #fff;
+    }
+
+    #nprogress .spinner-icon {
+      border-top-color: #fff;
+      border-left-color: #fff;
+    }
 }
 
 h1, h2, h3, h4, h5,h6{
@@ -315,15 +348,6 @@ html, body, div, span, iframe,
   will-change: opacity;
   transition: opacity 0.233s cubic-bezier(0, 0, 0.21, 1);
 }
-.back-btn{
-  padding:7px;
-  margin:10px;
-  font-size:1.5rem;
-  opacity:0.4;
-  transition: opacity 0.233s cubic-bezier(0, 0, 0.21, 1), background-color 0.233s cubic-bezier(0, 0, 0.21, 1);
-  &:hover{
-      opacity:1;
-      background:$bg-primary-color;
-  }
-}
+
+
 </style>

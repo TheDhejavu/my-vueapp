@@ -1,4 +1,5 @@
 <template>
+        <transition name="fade" >
         <div class="card">
             <div class="card-content">
                 <router-link :to="{ name: 'content', params: { id: item.id } }">
@@ -13,22 +14,64 @@
                             <p class="name">{{ item.user.name }} </p>
                         </div>
                         <div class="to-right">
-                            <button class="reset-btn more-button ripple">
+                            <button class="reset-btn more-button ripple" @click="toggleDropdown" ref="triggerNode">
                                 <i class='uil uil-ellipsis-v'></i>
                             </button>
                         </div>
+                        <dropdown
+                            :isDropdownOpen= 'isDropdownOpen'
+                            :refNode = 'triggerNode'
+                            @away= "hideDropdown"
+                            :styles='{
+                                top: "40px",
+                                right: "1px",
+                            }'
+                        >
+                            <ul >
+                                <li>
+                                    <a href="#"><i class="uil uil-trash"></i> Delete </a>
+                                </li>
+                                <li>
+                                    <a href="#"><i class="uil uil-comment-alt-edit"></i> Edit</a>
+                                </li>
+                            </ul>
+                        </dropdown>
                 </div>
             </div>
         </div>
+    </transition>
+
 </template>
 
 <script>
+import dropdown from "../Dropdown/Dropdown.vue";
+
 export default {
     name:"card",
+    components: {
+        dropdown
+    },
+    data(){
+        return {
+            triggerNode: "",
+            isDropdownOpen: false
+        }
+    },
+    mounted() {
+        this.triggerNode = this.$refs.triggerNode;
+    },
     props:{
         item:{
             type: Object,
             required: true
+        }
+    },
+    methods:{
+        toggleDropdown(){
+            this.isDropdownOpen = !this.isDropdownOpen;
+        },
+        hideDropdown(){
+            this.isDropdownOpen = false;
         }
     }
 }
@@ -92,5 +135,13 @@ export default {
             cursor:pointer;
         }
     }
+}
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+}
+.fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+    opacity: 0
 }
 </style>

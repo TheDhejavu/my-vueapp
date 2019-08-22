@@ -1,6 +1,6 @@
 <template>
     <layout page="My Feed">
-         <div v-for="item in data" v-bind:key="item.id" class="card-container">
+        <div v-for="item in data" v-bind:key="item.id" class="card-container">
              <card :item="item"></card>
         </div>
     </layout>
@@ -8,10 +8,15 @@
 <script>
 import Layout from "../../components/Layout/Layout.vue";
 import Card from "../../components/Card/Card.vue";
+
+
 export default {
     name:"my-feed",
     components:{
         Layout, Card
+    },
+    mounted(){
+        this.$progress.inc(0.5);
     },
     data (){
         return {
@@ -54,7 +59,8 @@ export default {
                 }
             ]
         }
-    }
+    },
+
 }
 </script>
 <style lang="scss" src="./MyFeed.scss"></style>
